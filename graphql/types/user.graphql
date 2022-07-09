@@ -1,0 +1,66 @@
+type Query {
+  user(id: ID!): User!
+}
+
+type User {
+  id: ID!
+  uid: String!
+  avatar: String!
+  full_name: String!
+  email: String!
+  gender: Gender!
+  birth_date: String!
+  location: String!
+  biography: String
+  device_brand: String!
+  device_model: String!
+  device_os_version: String!
+  app_version: String!
+  last_active_at: String!
+  created_at: String
+  updated_at: String
+}
+
+type Mutation {
+  login(data: LoginInput!): User!
+  updateUser(data: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+}
+
+input LoginInput {
+  uid: String!
+  avatar: String!
+  full_name: String!
+  email: String!
+  gender: Gender!
+  birth_date: String!
+  location: String!
+  biography: String
+  device_brand: String!
+  device_model: String!
+  device_os_version: String!
+  app_version: String!
+  last_active_at: String!
+  created_at: String
+  updated_at: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  avatar: String
+  full_name: String
+  gender: Gender
+  location: String
+  biography: String
+  device_brand: String
+  device_model: String
+  device_os_version: String
+  app_version: String
+  last_active_at: String
+}
+
+enum Gender {
+  male
+  female
+  other
+}
