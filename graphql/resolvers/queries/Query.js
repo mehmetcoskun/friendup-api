@@ -1,11 +1,11 @@
 const Query = {
-  user: (parent, args, { User }) => {
-    const user = User.findOne({ where: { uid: args.uid } })
-
-    if (!user) throw new Error('Kullanıcı bulunamadı')
-
-    return user
+  getUser: async (parent, args, { User }) => {
+    if (args.id) {
+      return await User.findByPk(args.id);
+    } else {
+      return await User.findOne({ where: { uid: args.uid } });
+    }
   },
-}
+};
 
-module.exports = Query
+module.exports = Query;

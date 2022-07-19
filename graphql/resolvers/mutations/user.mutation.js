@@ -1,29 +1,29 @@
 module.exports = {
-  login: async (parent, { data }, { User }) => {
-    const existingUser = await User.findOne({ where: { uid: data.uid } })
+  register: async (parent, { data }, { User }) => {
+    const existingUser = await User.findOne({ where: { uid: data.uid } });
 
-    if (existingUser) return existingUser
+    if (existingUser !== null) throw new Error({ code: 'user_exists', message: 'Kullanıcı zaten mevcut.' });
 
-    await User.create(data)
+    await User.create(data);
 
-    const user = await User.findOne({ where: { uid: data.uid } })
+    const user = await User.findOne({ where: { uid: data.uid } });
 
-    return user
+    return user;
   },
   updateUser: async (parent, { data }, { User }) => {
-    const user = await User.findOne({ where: { id: data.id } })
+    const user = await User.findOne({ where: { id: data.id } });
 
-    if (!user) throw new Error('Kullanıcı bulunamadı')
+    if (user === null) throw new Error({ code: 'user_not_found', message: 'Kullanıcı bulunamadı.' });
 
-    await user.update(data)
+    await user.update(data);
 
-    return user
+    return user;
   },
   deleteUser: async (parent, { id }, { User }) => {
-    const user = await User.findOne({ where: { id } })
+    const user = await User.findOne({ where: { id } });
 
-    if (!user) throw new Error('Kullanıcı bulunamadı')
+    if (user === null) throw new Error({ code: 'user_not_found', message: 'Kullanıcı bulunamadı.' });
 
-    return !!(await user.destroy())
+    return !!(await user.destroy());
   },
-}
+};

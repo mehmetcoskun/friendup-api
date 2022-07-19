@@ -1,9 +1,10 @@
 type Query {
-  user(uid: String!): User!
+  getUser(id: ID, uid: String): User
 }
 
 type User {
   id: ID!
+  status: Status!
   uid: String!
   avatar: String!
   full_name: String!
@@ -12,6 +13,7 @@ type User {
   birth_date: String!
   location: String!
   biography: String
+  match_gender: Gender!
   device_brand: String!
   device_model: String!
   device_os_version: String!
@@ -22,12 +24,12 @@ type User {
 }
 
 type Mutation {
-  login(data: LoginInput!): User!
+  register(data: RegisterInput!): User!
   updateUser(data: UpdateUserInput!): User!
   deleteUser(id: ID!): Boolean!
 }
 
-input LoginInput {
+input RegisterInput {
   uid: String!
   avatar: String!
   full_name: String!
@@ -36,13 +38,12 @@ input LoginInput {
   birth_date: String!
   location: String!
   biography: String
+  match_gender: Gender!
   device_brand: String!
   device_model: String!
   device_os_version: String!
   app_version: String!
   last_active_at: String!
-  created_at: String
-  updated_at: String
 }
 
 input UpdateUserInput {
@@ -60,7 +61,13 @@ input UpdateUserInput {
 }
 
 enum Gender {
+  everyone
   male
   female
   other
+}
+
+enum Status {
+  online
+  offline
 }

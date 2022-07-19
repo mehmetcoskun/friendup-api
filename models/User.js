@@ -10,6 +10,11 @@ const User = sequelize.define(
       autoIncrement: true,
       allowNull: false,
     },
+    status: {
+      type: Sequelize.ENUM('online', 'offline'),
+      defaultValue: 'offline',
+      allowNull: false,
+    },
     uid: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -41,6 +46,10 @@ const User = sequelize.define(
     biography: {
       type: Sequelize.TEXT,
       allowNull: true,
+    },
+    match_gender: {
+      type: Sequelize.DataTypes.ENUM('everyone', 'male', 'female', 'other'),
+      allowNull: false,
     },
     device_brand: {
       type: Sequelize.STRING,
